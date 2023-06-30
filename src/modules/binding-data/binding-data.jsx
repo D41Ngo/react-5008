@@ -25,18 +25,15 @@ export default class BindingData extends Component {
 
     // h1, div: element,
     // BindingData: component
+
+    // JSX: element | component | string | number
     return (
       <>
         <div>
           {<h1>haha</h1>}
           {JSON.stringify({ a: 1 })}
           {JSON.stringify([1, 2, 3, 4])}
-          {console.log(<div />)}
 
-          {true}
-          {false}
-          {null}
-          {undefined}
           <br />
           <p>Hôm nay học: {this.course}</p>
           <p>Tại: {cyber}</p>
