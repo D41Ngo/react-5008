@@ -3,6 +3,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 // import "./index.css";
 
+// Provider: kết nối react với redux
+import { Provider } from "react-redux";
+import { store } from "./redux/store.config.js";
+
 // App là một thẻ react do chúng ta tự định nghĩa.
 // App: là một component.
 
@@ -14,6 +18,8 @@ import App from "./App.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );

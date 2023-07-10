@@ -13,12 +13,16 @@ import ChangeCar from "./modules/state/change-car";
 import RenderWithArray from "./modules/render-with-array";
 import ListCard from "./modules/props/list-card/list-card";
 import PhoneShop from "./modules/props/phone-shop/phone-shop";
+import CountRedux from "./modules/demo-redux/count";
+import ChangeCarRedux from "./modules/demo-redux/change-car";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
   return (
     <>
-      <PhoneShop />
+      <ChangeCarRedux />
+      {/* <CountRedux /> */}
+      {/* <PhoneShop /> */}
       {/* <ListCard /> */}
       {/* <RenderWithArray /> */}
       {/* <ChangeCar /> */}

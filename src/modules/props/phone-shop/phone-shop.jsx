@@ -50,6 +50,12 @@ const listProduct = [
     hinhAnh: "/images/phones/sp_iphoneX.png",
   },
 ];
+
+// component: logic + UI ( X )
+
+// component chỉ để show UI.
+// redux thì xử lý logic.
+
 export default class PhoneShop extends Component {
   state = {
     isLogin: false,
@@ -141,13 +147,30 @@ export default class PhoneShop extends Component {
 
     console.log({ quantity, maSP });
 
-    if (quantity === 1) {
-      //
+    // 1. tìm sản phẩm có maSP trong giỏ hàng.
+    // - nếu có thì tăng giảm.
+    // - thoát khỏi function => return;
+    // 2. nếu nhừ số lượng của sản phẩm đang là 1 và người dùng nhấn button giảm.
+    //  - xóa. ( V )
+    //  - giữ nguyên. ( X )
+
+    const sanPham = this.state.gioHang.find((item) => item.maSP === maSP);
+
+    if (!sanPham) return;
+
+    if (sanPham.soLuong === 1 && quantity === -1) {
+      this.handleDeleteSp(maSP); // thuc hien xong.
+      // thoát khỏi function không thực hiện những dòng lệnh phía dưới nữa.
+      return;
     }
 
-    if (quantity === -1) {
-      //
-    }
+    sanPham.soLuong += quantity;
+
+    console.log("Gio Hang Sau Khi Thay Doi", this.state.gioHang);
+
+    this.setState({
+      gioHang: this.state.gioHang,
+    });
   };
 
   render() {
@@ -159,17 +182,20 @@ export default class PhoneShop extends Component {
           onChangeQuantity={this.handleChangeQuantity}
           gioHang={this.state.gioHang}
         />
-        <div className="mt-2 d-flex gap-1">
-          {listProduct.map((item) => {
-            return (
-              <PhoneItem
-                onAddSanPham={this.handleAddSanPham}
-                onChangeSanPham={this.handleChangeSanPhamChiTiet}
-                phone={item}
-                key={item.maSP}
-              />
-            );
-          })}
+        <div className="mt-2">
+          <div className="row">
+            {listProduct.map((item) => {
+              return (
+                <div key={item.maSP} className="col-4">
+                  <PhoneItem
+                    onAddSanPham={this.handleAddSanPham}
+                    onChangeSanPham={this.handleChangeSanPhamChiTiet}
+                    phone={item}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="mt-2">
           <XemChiTiet sanPham={this.state.spChiTiet} />
