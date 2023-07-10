@@ -135,11 +135,28 @@ export default class PhoneShop extends Component {
     }
   };
 
+  // nếu như function có từ 2->3 tham số trở lên thì nên truyền dưới dạng object.
+  handleChangeQuantity = (params) => {
+    const { quantity, maSP } = params;
+
+    console.log({ quantity, maSP });
+
+    if (quantity === 1) {
+      //
+    }
+
+    if (quantity === -1) {
+      //
+    }
+  };
+
   render() {
+    // this.props => type object
     return (
       <div className="container">
         <GioHang
           onDeleteSp={this.handleDeleteSp}
+          onChangeQuantity={this.handleChangeQuantity}
           gioHang={this.state.gioHang}
         />
         <div className="mt-2 d-flex gap-1">

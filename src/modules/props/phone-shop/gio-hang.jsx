@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class GioHang extends Component {
   render() {
-    const { gioHang, onDeleteSp } = this.props;
+    const { gioHang, onDeleteSp, onChangeQuantity } = this.props;
     return (
       <div>
         <h1>Giỏ hàng</h1>
@@ -33,7 +33,17 @@ export default class GioHang extends Component {
                     />
                   </td>
                   <td>
-                    <button className="btn btn-success">+</button>
+                    <button
+                      onClick={() => {
+                        onChangeQuantity({
+                          quantity: 1,
+                          maSP: sp.maSP,
+                        });
+                      }}
+                      className="btn btn-success"
+                    >
+                      +
+                    </button>
                     <span
                       style={{
                         fontSize: 30,
@@ -41,7 +51,17 @@ export default class GioHang extends Component {
                     >
                       {sp.soLuong}
                     </span>
-                    <button className="btn btn-success">-</button>
+                    <button
+                      onClick={() => {
+                        onChangeQuantity({
+                          quantity: -1,
+                          maSP: sp.maSP,
+                        });
+                      }}
+                      className="btn btn-success"
+                    >
+                      -
+                    </button>
                   </td>
                   <td>{sp.soLuong * sp.giaBan}</td>
                   <td>
