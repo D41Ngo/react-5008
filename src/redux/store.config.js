@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from "redux";
-
+import { carReducer } from "./car-reducer";
+import { numberReducer } from "./number-reducer";
+import { phoneShopReducer } from "./phone-shop/phone-shop.reducer";
 // @reduxjs/toolkit
-
-const carStateDefault = "/images/cars/red-car.jpg";
 
 const countStateDefault = { count: 99 };
 
@@ -11,13 +11,7 @@ const rootReducer = combineReducers({
   // --- reducer:
   // 1. xử lý logic
   // 2. lưu trữ state
-  numberReducer: (
-    state = { count: 52, isLogin: false, gioHang: [], spChiTiet: {} },
-    action
-  ) => {
-    // đẩy logic lên trên này xử lý.
-    return state;
-  },
+  numberReducer: numberReducer,
 
   countReducer: (state = countStateDefault, action) => {
     // if (action.type === "tang-count") {
@@ -46,20 +40,9 @@ const rootReducer = combineReducers({
   },
 
   // Chú ý: nên tạo một biến lưu trữ state default bên ngoài.
-  carReducer: (state = carStateDefault, action) => {
-    switch (action.type) {
-      case "change-img": {
-        // payload: color
-        // state = `/images/cars/${action.payload}-car.jpg`;
+  carReducer: carReducer,
 
-        state = action.payload;
-
-        return state;
-      }
-      default:
-        return state;
-    }
-  },
+  phoneShopReducer,
 });
 
 // redux store. tập trung tất cả state của ứng dụng.
