@@ -1,0 +1,24 @@
+@font-face {
+  /* Tự đặt tên cho font mà chúng ta import vào */
+  font-family: Pony;
+  src: url("/fonts/Pony.ttf");
+}
+
+body {
+  font-family: Pony;
+}
+
+.game-xuc-xac {
+  background-image: url("/images/game-xuc-xac/bgGame.png");
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 1px;
+}
+
+.title {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 20px;
+}

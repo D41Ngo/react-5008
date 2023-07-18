@@ -2,8 +2,11 @@ import { createStore, combineReducers } from "redux";
 import { carReducer } from "./car-reducer";
 import { numberReducer } from "./number-reducer";
 import { phoneShopReducer } from "./phone-shop/phone-shop.reducer";
+import { gameXucXacReducer } from "./game-xuc-xac-reducer/game-xuc-xac.reducer";
+import { gameBuaKeoBaoReducer } from "./game-bua-keo-bao/game-bua-keo-bao.reducer";
 // @reduxjs/toolkit
-
+// .js .jsx
+// .css import rõ ràng tên file vào
 const countStateDefault = { count: 99 };
 
 const rootReducer = combineReducers({
@@ -43,6 +46,10 @@ const rootReducer = combineReducers({
   carReducer: carReducer,
 
   phoneShopReducer,
+
+  gameXucXacReducer,
+
+  gameBuaKeoBaoReducer,
 });
 
 // redux store. tập trung tất cả state của ứng dụng.

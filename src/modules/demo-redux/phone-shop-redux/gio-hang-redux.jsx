@@ -125,7 +125,7 @@ const mapStateToProps = (rootReducer) => {
 
 // 1 lựa chọn duy nhất.
 // ---------------------
-// 1. dispatch trực tiếp.
-// 2. dispatch gián tiếp.
+// 1. dispatch trực tiếp. this.props.dispatch
+// 2. dispatch gián tiếp. mapStateToProps
 
 export default connect(mapStateToProps)(GioHangRedux);

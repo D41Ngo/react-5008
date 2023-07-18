@@ -108,7 +108,7 @@ export const phoneShopReducer = (state = STATE_DEFAULT, action) => {
     }
     case PHONE_SHOP_TYPE.ResetModal: {
       state.modal = null;
-      return { ...state };
+      return { ...state }; // redux phân biệt được state cũ và state mới để cập nhật lại state => state được dùng chỗ nào thì react sẽ tự động render để cập nhật state mới nhất
     }
     default:
       return state;
