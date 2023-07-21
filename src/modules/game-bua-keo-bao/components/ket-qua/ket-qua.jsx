@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { playGameCreator } from "../../../../redux/game-bua-keo-bao/game-bua-keo-bao.action";
 class KetQua extends Component {
   render() {
+    // re-render???? cập nhật lại giá trị mới của component
     return (
       <div>
         <p>Số bàn thắng: {this.props.soBanThang}</p>
         <p>Tổng số màn chơi: {this.props.tongSoManChoi}</p>
-        <button>Play Game</button>
+        <button
+          onClick={() => {
+            this.props.dispatch(playGameCreator());
+          }}
+        >
+          Play Game
+        </button>
       </div>
     );
   }

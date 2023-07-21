@@ -18,12 +18,15 @@ import ChangeCarRedux from "./modules/demo-redux/change-car";
 import PhoneShopRedux from "./modules/demo-redux/phone-shop-redux/phone-shop-redux";
 import GameXucXac from "./modules/game-xuc-xac";
 import GameBuaKeoBao from "./modules/game-bua-keo-bao/game-bua-keo-bao";
+
+import { ReactForm } from "./modules/react-form";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
   return (
     <>
-      <GameBuaKeoBao />
+      <ReactForm />
+      {/* <GameBuaKeoBao /> */}
       {/* <GameXucXac /> */}
 
       {/* <PhoneShopRedux /> */}

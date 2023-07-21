@@ -3,6 +3,12 @@ import IronMan from "./components/iron-man";
 import KetQua from "./components/ket-qua";
 import Thanos from "./components/thanos";
 
+/**
+ * Khi nào component sẽ re-render
+ * - state thay đổi.
+ * - component cha re-render -> component con re-render.
+ */
+
 export default class GameBuaKeoBao extends Component {
   render() {
     return (
