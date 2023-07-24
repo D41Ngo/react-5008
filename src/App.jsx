@@ -20,12 +20,25 @@ import GameXucXac from "./modules/game-xuc-xac";
 import GameBuaKeoBao from "./modules/game-bua-keo-bao/game-bua-keo-bao";
 
 import { ReactForm } from "./modules/react-form";
+import LifeCycle from "./modules/life-cycle/life-cycle";
+import { useState } from "react";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
+  const [is, setIs] = useState(false);
   return (
     <>
-      <ReactForm />
+      <button
+        onClick={() => {
+          setIs(!is);
+        }}
+      >
+        Click
+      </button>
+
+      {is && <LifeCycle />}
+      {/* <ReactForm /> */}
+
       {/* <GameBuaKeoBao /> */}
       {/* <GameXucXac /> */}
 

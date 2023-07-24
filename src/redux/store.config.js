@@ -4,6 +4,8 @@ import { numberReducer } from "./number-reducer";
 import { phoneShopReducer } from "./phone-shop/phone-shop.reducer";
 import { gameXucXacReducer } from "./game-xuc-xac-reducer/game-xuc-xac.reducer";
 import { gameBuaKeoBaoReducer } from "./game-bua-keo-bao/game-bua-keo-bao.reducer";
+
+import { reactFormReducer } from "./react-form/react-form.reducer";
 // @reduxjs/toolkit
 // .js .jsx
 // .css import rõ ràng tên file vào
@@ -50,6 +52,8 @@ const rootReducer = combineReducers({
   gameXucXacReducer,
 
   gameBuaKeoBaoReducer,
+
+  reactFormReducer,
 });
 
 // redux store. tập trung tất cả state của ứng dụng.

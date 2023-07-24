@@ -1,6 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { dangKySPCreator } from "../../../../redux/react-form/react-form.action";
+const MAPPER = {
+  id: "Id",
+  name: "Name",
+  price: "Price",
+  productType: "Product type",
+  desc: "Description",
+  img: "Image",
+};
 
-export default class FormDangKy extends Component {
+class FormDangKy extends Component {
   /***
    * 1. Lấy giá trị từ input người dùng nhập vào.
    * 2. Validate.
@@ -25,7 +35,7 @@ export default class FormDangKy extends Component {
       desc: false,
     },
     error: {
-      id: "Id Không được bỏ trống",
+      id: "",
       name: "",
       price: "",
       img: "",
@@ -43,16 +53,80 @@ export default class FormDangKy extends Component {
 
     const { value, id, name, className } = event.target;
 
-    console.log({ id });
     // const value = event.target.value;
     // const id = event.target.id;
 
     // giữ giá trị cũ | xét lại giá trị mới. ???
+
+    // validate
+    /**
+     * id: không được bỏ trống và phải là số.
+     */
+    let newError = {};
+    for (const key in this.state.touch) {
+      // this.state.touch[key]: lấy giá trị của thuộc tính
+      if (this.state.touch[key]) {
+        // Điều kiện: Không được bỏ trống.
+        // this.state.value[key]: đang validate giá trị cũ trước đó của state.
+        const __value = key === id ? value : this.state.value[key];
+
+        switch (key) {
+          case "id": {
+            if (/^\d*$/.test(__value) === false) {
+              newError[key] = "Id phải là số.";
+            }
+            break;
+          }
+          case "img": {
+            const regexURL =
+              /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+            if (regexURL.test(__value) === false) {
+              newError[key] = "Đường dẫn không hợp lệ.";
+            }
+            break;
+          }
+          case "price": {
+            if (/^\d*$/.test(__value) === false) {
+              newError[key] = "Price không hợp lệ.";
+            }
+            break;
+          }
+
+          case "desc": {
+            if (__value.length > 50) {
+              newError[key] = "Description quá dài. Chỉ cho phép 50 ký tự.";
+            }
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+
+        if (__value.length === 0) {
+          newError[key] = MAPPER[key] + " không được bỏ trống";
+        }
+
+        // if (key === id) {
+        //   if (value.length === 0) {
+        //     newError[key] = key + " không được bỏ trống";
+        //   }
+        // } else {
+        //   if (this.state.value[key].length === 0) {
+        //     newError[key] = key + " không được bỏ trống";
+        //   }
+        // }
+      }
+    }
+
     this.setState({
+      // ...this.state, không cần thiết, vì nó sẽ tự động merge lại giúp chúng ta.
+
       value: {
         ...this.state.value,
         [id]: value,
       },
+      error: newError,
     });
 
     // property = 'id'
@@ -76,15 +150,60 @@ export default class FormDangKy extends Component {
       },
     });
   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    for (const key in this.state.value) {
+      // phải được nhập đầy đủ.
+      if (this.state.value[key].length === 0) {
+        // thoát khỏi function không cho submit nữa
+        return;
+      }
+
+      // không còn dòng báo lỗi nào.
+      // if (this.state.error[key] && this.state.error[key].length > 0) {
+
+      // option chaining
+      if (this.state.error[key]?.length > 0) {
+        alert(this.state.error[key]);
+        // thoát khỏi function không cho submit nữa
+        return;
+      }
+    }
+
+    console.log("submit", this.state.value);
+
+    this.props.dispatch(dangKySPCreator(this.state.value));
+
+    this.setState({
+      value: {
+        id: "",
+        name: "",
+        price: "",
+        img: "",
+        productType: "",
+        desc: "",
+      },
+    });
+  };
   render() {
-    console.log(this.state.touch);
+    console.log(this.props.spChinhSua);
+
+    /**
+     * Mong muốn: khi nào có spChinhSua thì mình sẽ cập nhật lại state.value = spChinhSua.
+     *
+     * -------------- pending ----------------
+     * Life cycle
+     */
     return (
-      <form className="g-3">
+      <form onSubmit={this.handleSubmit} className="g-3">
         <div className="row">
           <div className="col-6">
             <div>
               <label htmlFor="id">ID</label>
               <input
+                name="Id"
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
                 value={this.state.value.id}
@@ -100,6 +219,7 @@ export default class FormDangKy extends Component {
             <div className="mt-3">
               <label htmlFor="name">Name</label>
               <input
+                name="Name"
                 onFocus={this.handleFocus}
                 value={this.state.value.name}
                 onChange={this.handleChange}
@@ -108,10 +228,14 @@ export default class FormDangKy extends Component {
                 id="name"
                 placeholder=""
               />
+              {this.state.touch.name && this.state.error.name && (
+                <p className="text-red-500">{this.state.error.name}</p>
+              )}
             </div>
             <div className="mt-3">
               <label htmlFor="price">Price</label>
               <input
+                name="Price"
                 onFocus={this.handleFocus}
                 value={this.state.value.price}
                 onChange={this.handleChange}
@@ -120,12 +244,17 @@ export default class FormDangKy extends Component {
                 id="price"
                 placeholder=""
               />
+              {this.state.touch.price && this.state.error.price && (
+                <p className="text-red-500">{this.state.error.price}</p>
+              )}
             </div>
           </div>
           <div className="col-6">
             <div>
               <label htmlFor="img">Image</label>
               <input
+                name="Image"
+                value={this.state.value.img}
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
                 type="text"
@@ -133,27 +262,48 @@ export default class FormDangKy extends Component {
                 id="img"
                 placeholder=""
               />
+              {this.state.touch.img && this.state.error.img && (
+                <p className="text-red-500">{this.state.error.img}</p>
+              )}
             </div>
             <div className="mt-3">
-              <label>Product Type</label>
-              <select className="form-select">
-                <option selected>Select</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <label htmlFor="productType">Product Type</label>
+              <select
+                id="productType"
+                name="Product type"
+                onChange={this.handleChange}
+                onFocus={this.handleFocus}
+                value={this.state.value.productType}
+                className="form-select"
+              >
+                <option value={""} selected>
+                  Select
+                </option>
+                <option value="Phone">Phone</option>
+                <option value="Tablet">Tablet</option>
+                <option value="Laptop">Laptop</option>
               </select>
+
+              {this.state.touch.productType && this.state.error.productType && (
+                <p className="text-red-500">{this.state.error.productType}</p>
+              )}
             </div>
 
             <div className="mt-3">
               <label htmlFor="desc">Description</label>
               <input
+                name="Description"
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
                 type="text"
                 className="form-control"
                 id="desc"
                 placeholder=""
+                value={this.state.value.desc}
               />
+              {this.state.touch.desc && this.state.error.desc && (
+                <p className="text-red-500">{this.state.error.desc}</p>
+              )}
             </div>
           </div>
         </div>
@@ -166,3 +316,11 @@ export default class FormDangKy extends Component {
     );
   }
 }
+
+const mapStateToProps = (rootReducer) => {
+  return {
+    spChinhSua: rootReducer.reactFormReducer.spChinhSua,
+  };
+};
+
+export default connect(mapStateToProps)(FormDangKy);
