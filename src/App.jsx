@@ -25,19 +25,10 @@ import { useState } from "react";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
-  const [is, setIs] = useState(false);
   return (
     <>
-      <button
-        onClick={() => {
-          setIs(!is);
-        }}
-      >
-        Click
-      </button>
-
-      {is && <LifeCycle />}
-      {/* <ReactForm /> */}
+      {/* <LifeCycle /> */}
+      <ReactForm />
 
       {/* <GameBuaKeoBao /> */}
       {/* <GameXucXac /> */}

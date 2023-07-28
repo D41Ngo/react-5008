@@ -64,6 +64,10 @@ class ListProduct extends Component {
       </table>
     );
   }
+
+  componentWillUnmount() {
+    console.log("ListProduct - unmount");
+  }
 }
 
 const mapStateToProps = (rootReducer) => {

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { dangKySPCreator } from "../../../../redux/react-form/react-form.action";
+import {
+  dangKySPCreator,
+  hoanThienChinhSuaCreator,
+} from "../../../../redux/react-form/react-form.action";
 const MAPPER = {
   id: "Id",
   name: "Name",
@@ -174,7 +177,17 @@ class FormDangKy extends Component {
 
     console.log("submit", this.state.value);
 
-    this.props.dispatch(dangKySPCreator(this.state.value));
+    const creator = this.props.spChinhSua
+      ? hoanThienChinhSuaCreator
+      : dangKySPCreator;
+
+    this.props.dispatch(creator(this.state.value));
+
+    // if (this.props.spChinhSua) {
+    //   this.props.dispatch(hoanThienChinhSuaCreator(this.state.value));
+    // } else {
+    //   this.props.dispatch(dangKySPCreator(this.state.value));
+    // }
 
     this.setState({
       value: {
@@ -187,8 +200,32 @@ class FormDangKy extends Component {
       },
     });
   };
+
+  // props -> re-render;
+
+  // static:
+  static getDerivedStateFromProps(newProps, currentState) {
+    console.log({ newProps, currentState });
+
+    // nếu có spChinhSua thì cập nhật lại state.
+    // if (newProps.spChinhSua !== null) {
+
+    if (newProps.spChinhSua) {
+      if (newProps.spChinhSua?.id !== currentState.value?.id) {
+        return {
+          ...currentState,
+
+          value: newProps.spChinhSua,
+        };
+      }
+    }
+
+    return null;
+  }
+
   render() {
-    console.log(this.props.spChinhSua);
+    // console.log(this.props.spChinhSua);
+    // console.log("state", this.state.value);
 
     /**
      * Mong muốn: khi nào có spChinhSua thì mình sẽ cập nhật lại state.value = spChinhSua.
@@ -206,14 +243,14 @@ class FormDangKy extends Component {
                 name="Id"
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
-                value={this.state.value.id}
+                value={this.state.value?.id}
                 type="text"
                 className="form-control"
                 id="id"
                 placeholder=""
               />
-              {this.state.touch.id && this.state.error.id && (
-                <p className="text-red-500">{this.state.error.id}</p>
+              {this.state.touch?.id && this.state.error?.id && (
+                <p className="text-red-500">{this.state.error?.id}</p>
               )}
             </div>
             <div className="mt-3">
@@ -221,15 +258,15 @@ class FormDangKy extends Component {
               <input
                 name="Name"
                 onFocus={this.handleFocus}
-                value={this.state.value.name}
+                value={this.state.value?.name}
                 onChange={this.handleChange}
                 type="text"
                 className="form-control"
                 id="name"
                 placeholder=""
               />
-              {this.state.touch.name && this.state.error.name && (
-                <p className="text-red-500">{this.state.error.name}</p>
+              {this.state.touch?.name && this.state.error?.name && (
+                <p className="text-red-500">{this.state.error?.name}</p>
               )}
             </div>
             <div className="mt-3">
@@ -237,15 +274,15 @@ class FormDangKy extends Component {
               <input
                 name="Price"
                 onFocus={this.handleFocus}
-                value={this.state.value.price}
+                value={this.state.value?.price}
                 onChange={this.handleChange}
                 type="text"
                 className="form-control"
                 id="price"
                 placeholder=""
               />
-              {this.state.touch.price && this.state.error.price && (
-                <p className="text-red-500">{this.state.error.price}</p>
+              {this.state.touch?.price && this.state.error?.price && (
+                <p className="text-red-500">{this.state.error?.price}</p>
               )}
             </div>
           </div>
@@ -254,7 +291,7 @@ class FormDangKy extends Component {
               <label htmlFor="img">Image</label>
               <input
                 name="Image"
-                value={this.state.value.img}
+                value={this.state.value?.img}
                 onFocus={this.handleFocus}
                 onChange={this.handleChange}
                 type="text"
@@ -262,8 +299,8 @@ class FormDangKy extends Component {
                 id="img"
                 placeholder=""
               />
-              {this.state.touch.img && this.state.error.img && (
-                <p className="text-red-500">{this.state.error.img}</p>
+              {this.state.touch?.img && this.state.error?.img && (
+                <p className="text-red-500">{this.state.error?.img}</p>
               )}
             </div>
             <div className="mt-3">
@@ -273,7 +310,7 @@ class FormDangKy extends Component {
                 name="Product type"
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}
-                value={this.state.value.productType}
+                value={this.state.value?.productType}
                 className="form-select"
               >
                 <option value={""} selected>
@@ -284,9 +321,12 @@ class FormDangKy extends Component {
                 <option value="Laptop">Laptop</option>
               </select>
 
-              {this.state.touch.productType && this.state.error.productType && (
-                <p className="text-red-500">{this.state.error.productType}</p>
-              )}
+              {this.state.touch?.productType &&
+                this.state.error?.productType && (
+                  <p className="text-red-500">
+                    {this.state.error?.productType}
+                  </p>
+                )}
             </div>
 
             <div className="mt-3">
@@ -299,18 +339,21 @@ class FormDangKy extends Component {
                 className="form-control"
                 id="desc"
                 placeholder=""
-                value={this.state.value.desc}
+                value={this.state.value?.desc}
               />
-              {this.state.touch.desc && this.state.error.desc && (
-                <p className="text-red-500">{this.state.error.desc}</p>
+              {this.state.touch?.desc && this.state.error?.desc && (
+                <p className="text-red-500">{this.state.error?.desc}</p>
               )}
             </div>
           </div>
         </div>
 
         <div className="mt-4">
-          <button className="btn btn-success mx-4">Đăng Ký</button>
-          <button className="btn btn-success mx-4">Chỉnh Sửa</button>
+          {this.props.spChinhSua ? (
+            <button className="btn btn-success mx-4">Chỉnh Sửa</button>
+          ) : (
+            <button className="btn btn-success mx-4">Đăng Ký</button>
+          )}
         </div>
       </form>
     );
@@ -324,3 +367,24 @@ const mapStateToProps = (rootReducer) => {
 };
 
 export default connect(mapStateToProps)(FormDangKy);
+
+// class Car {
+//   // nếu là instance thì không thể gọi được.
+
+//   // chỉnh dành cho lớp đối tượng của chính nó gọi.
+//   static info() {
+//     console.log("info");
+//     // this => đại diện cho instance
+//   }
+
+//   getName() {
+//     console.log("name");
+//   }
+// }
+
+// honda.getName();
+// // honda.info() => ERROR
+// Car.info();
+
+// const honda = new Car();
+// // honda: instance thể hiện của lớp đối tượng Car. Object
