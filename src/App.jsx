@@ -22,13 +22,19 @@ import GameBuaKeoBao from "./modules/game-bua-keo-bao/game-bua-keo-bao";
 import { ReactForm } from "./modules/react-form";
 import LifeCycle from "./modules/life-cycle/life-cycle";
 import { useState } from "react";
+import DemoProps from "./react-hooks/props";
+import DemoUseEffect from "./react-hooks/use-effect";
+import TodoList from "./react-hooks/use-effect/todo-list";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
   return (
     <>
+      <TodoList />
+      {/* <DemoUseEffect /> */}
+      {/* <DemoProps /> */}
       {/* <LifeCycle /> */}
-      <ReactForm />
+      {/* <ReactForm /> */}
 
       {/* <GameBuaKeoBao /> */}
       {/* <GameXucXac /> */}

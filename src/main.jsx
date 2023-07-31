@@ -17,9 +17,9 @@ import { store } from "./redux/store.config.js";
 // App: nơi chúng ta sẽ code giao diện chính trong component này.
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
+  // </React.StrictMode>
 );
