@@ -25,12 +25,20 @@ import { useState } from "react";
 import DemoProps from "./react-hooks/props";
 import DemoUseEffect from "./react-hooks/use-effect";
 import TodoList from "./react-hooks/use-effect/todo-list";
+import Select from "./react-hooks/use-effect/select";
+import SelectV2 from "./react-hooks/use-effect/select-2";
+
+import Performance from "./react-hooks/performance";
+import UseRef from "./react-hooks/performance/use-ref";
 // đây là file, tạo component App để đưa lên giao diện.
 // js + css + html => .jsx
 function App() {
   return (
     <>
-      <TodoList />
+      <UseRef />
+      {/* <Performance /> */}
+      {/* <SelectV2 /> */}
+      {/* <TodoList /> */}
       {/* <DemoUseEffect /> */}
       {/* <DemoProps /> */}
       {/* <LifeCycle /> */}
