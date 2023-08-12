@@ -35,7 +35,7 @@ import UseRef from "./react-hooks/performance/use-ref";
 function App() {
   return (
     <>
-      <UseRef />
+      {/* <UseRef /> */}
       {/* <Performance /> */}
       {/* <SelectV2 /> */}
       {/* <TodoList /> */}

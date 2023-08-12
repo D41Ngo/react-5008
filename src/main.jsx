@@ -7,6 +7,9 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.config.js";
 
+// setup router
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 // App là một thẻ react do chúng ta tự định nghĩa.
 // App: là một component.
 
@@ -19,7 +22,9 @@ import { store } from "./redux/store.config.js";
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <RouterProvider router={router}>
+      <App />
+    </RouterProvider>
   </Provider>
   // </React.StrictMode>
 );

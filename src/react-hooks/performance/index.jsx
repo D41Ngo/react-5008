@@ -48,7 +48,7 @@ function Performance() {
   // tạo lại quá nhiều, => cache lại quá nhiều => tràn ram
 
   /**
-   * const __useCallback = (fn) => {
+   * const __useCallback = (fn, dependencies) => {
    *    return fn;
    * };
    */
@@ -71,7 +71,7 @@ function Performance() {
    */
 
   /**
-   * const __useMemo = (fn) => {
+   * const __useMemo = (fn, dependencies) => {
    *    return fn(); // return 1
    * };
    */

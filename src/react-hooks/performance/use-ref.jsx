@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 const todosDefault = ["Đi học", "Đi Làm", "Ăn", "Ngủ"];
 
 function UseRef() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [todos, setTodos] = useState(todosDefault);
   //   const [inputValue, setInputValue] = useState("");
 
@@ -17,9 +17,23 @@ function UseRef() {
   console.log("render");
   console.log(inputValue);
 
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-    console.log(inputRef);
+    setTimeout(() => {
+      setData({});
+    }, 3000);
   }, []);
+
+  // Đôi khi chạy, đôi khi không chạy.
+  useEffect(() => {
+    // luôn chạy
+    console.log(inputRef.current);
+  }, []);
+
+  if (!data) {
+    return <>Loading....</>;
+  }
 
   return (
     <div className="container">

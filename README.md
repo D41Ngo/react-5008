@@ -18,3 +18,13 @@ npm i -> 18.2.3
 
 neu chung ta day package-lock.json leen
 npm i -> 18.2.1
+
+useState? 
+props ? =>
+state ? => 
+life cycle ? 
+useEffect ?
+
+rule hooks:
+- Luon dua hooks len tren dau. moi component
+- Khong dat trong cau dieu kien, for, ...
